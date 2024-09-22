@@ -1,0 +1,54 @@
+# .github/workflows/testci.yml
+name: Python and Robot Framework CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # 2. Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      # 3. Install Python dependencies
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      # 4. Install Robot Framework and necessary libraries
+      - name: Install Robot Framework
+        run: |
+          pip install robotframework
+          pip install -r requirements-robot.txt
+
+      # 5. Run Python unit tests (optional, if applicable)
+      - name: Run Python Unit Tests
+        run: |
+          python -m unittest discover -s tests
+
+      # 6. Run Robot Framework tests
+      - name: Run Robot Framework Tests
+        run: |
+          robot --outputdir results tests/
+          
+      # 7. Upload test results (optional)
+      - name: Upload Robot Framework Results
+        uses: actions/upload-artifact@v3
+        with:
+          name: robot-results
+          path: results/
