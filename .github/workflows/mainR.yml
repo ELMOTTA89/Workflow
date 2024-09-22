@@ -39,7 +39,7 @@ jobs:
       # 5. Run Python unit tests (optional, if applicable)
       - name: Run Python Unit Tests
         run: |
-          python -m unittest discover -s tests
+          python -m unittest discover -s TEST
 
       # 6. Run Robot Framework tests
       - name: Run Robot Framework Tests
