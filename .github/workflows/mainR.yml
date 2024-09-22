@@ -44,7 +44,7 @@ jobs:
       # 6. Run Robot Framework tests
       - name: Run Robot Framework Tests
         run: |
-          robot --outputdir results tests/
+          robot --outputdir results TESTRobot.ROBOT/
           
       # 7. Upload test results (optional)
       - name: Upload Robot Framework Results
